@@ -20,7 +20,7 @@ def encodeByPeriod(msg, period):
     elif len(msg) > len(period):
         while len(msg) != len(period):
             period += period[:len(msg)-len(period)]
-    print(period)
+    #print(period)
 
     char_indexes = []
     for c in msg:
@@ -46,7 +46,7 @@ def decodeByPeriod(msg, period):
     elif len(msg) > len(period):
         while len(msg) != len(period):
             period += period[:len(msg)-len(period)]
-    print(period)
+    #print(period)
 
     char_indexes = []
     for c in msg:
