@@ -1,6 +1,6 @@
 # CARDANO CIPHER (6x6) on python3 by B. Pakhomov
-import numpy as np
 
+### For encoding
 def putPattern(msg):
     i = 0
     for e in g_pattern:
@@ -12,6 +12,19 @@ def fillGaps(msg):
     for e in g_other:
         c_grid[e[0]][e[1]] = msg[i]
         i += 1
+
+
+### For decoding
+def getFromPattern(res):
+    for e in g_pattern:
+        res += c_grid[e[0]][e[1]]
+    return res
+
+def getFromGaps(res):
+    for e in g_other:
+        res += c_grid[e[0]][e[1]]
+    return res
+
 
 # An Inplace function to rotate
 # N x N matrix by 90 degrees in
@@ -56,8 +69,9 @@ def rotateClock(A):
 msg = "The Cardan grille is a method of writing secret messages using a grid"
 print("Plain text:", msg)
 
-msg = msg.replace(" ", "")
+#msg = msg.replace(" ", "")
 msg = msg[:36].upper()
+for_check = msg
 
 print("Prepared for encoding text:", msg)
 
@@ -149,3 +163,43 @@ print("Encoded string:", res)
 print("DORTTNHFGTHIOLIESMEECRINEAACGRILSWDA" == res)
 
 ######## DECODING ##########
+res = ""
+
+### FIRST
+res = getFromPattern(res)
+
+### SECOND
+#print()
+rotateAntiClock(c_grid)
+
+res = getFromPattern(res)
+
+rotateClock(c_grid)
+
+### THIRD
+# we need to rotate 2x because we always reset our rotatting for print step result
+rotateAntiClock(c_grid)
+rotateAntiClock(c_grid)
+
+res = getFromPattern(res)
+
+rotateClock(c_grid)
+rotateClock(c_grid)
+
+### FOUR
+# we need to rotate 3x
+rotateAntiClock(c_grid)
+rotateAntiClock(c_grid)
+rotateAntiClock(c_grid)
+
+res = getFromPattern(res)
+
+rotateClock(c_grid)
+rotateClock(c_grid)
+rotateClock(c_grid)
+
+### FIVE
+res = getFromGaps(res)
+
+print("Decoded text:", res)
+print(res == for_check)
