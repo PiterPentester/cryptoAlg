@@ -160,7 +160,7 @@ for e in c_grid:
     for c in e:
         res += c
 print("Encoded string:", res)
-print("DORTTNHFGTHIOLIESMEECRINEAACGRILSWDA" == res)
+#print("DORTTNHFGTHIOLIESMEECRINEAACGRILSWDA" == res)
 
 ######## DECODING ##########
 res = ""
